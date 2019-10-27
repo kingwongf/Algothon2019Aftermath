@@ -15,6 +15,6 @@ overlapping_tickers = li.columns.tolist()
 us_eod = pd.read_csv('data/algothon/unstack_us_eod.csv')
 us_eod = us_eod[us_eod['ticker'].isin(overlapping_tickers)]
 
-us_eod.to_pickle('data/algothon/filtered_us_eod.pkl')
+us_eod.to_pickle('data/filtered_us_eod.pkl')
 
 print(us_eod.head(5))

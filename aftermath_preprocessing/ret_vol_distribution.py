@@ -17,6 +17,6 @@ us_eod['vol1m'] = us_eod.groupby('ticker')['Adj_Close'].apply(featGen.retvol, ax
 us_eod['ret1m'] = us_eod.groupby('ticker')['Adj_Close'].apply(featGen.ret, axis=0,
                                                                   args=(20,)).fillna(method='ffill')
 
-relevant = us_eod['2010-01-01':][['ret1m','vol1m']]
+relevant = us_eod['2010-01-01':][['ret1m','vol1m']].resample(1000)
 plt.plot(relevant)
 plt.show()
