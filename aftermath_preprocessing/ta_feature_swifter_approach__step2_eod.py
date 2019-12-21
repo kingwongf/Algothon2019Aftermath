@@ -56,8 +56,7 @@ RSI = us_eod_Adj_Close.apply(featGen.RSI, axis=0).fillna(method='ffill').unstack
 MACD1m12m = us_eod_Adj_Close.apply(featGen.MACD, axis=0).fillna(method='ffill').unstack().reset_index(name='MACD1m12m')
 
 return1m = us_eod_Adj_Close.pct_change(20).unstack().reset_index(name='return1m')
-print(return1m)
-return1m['emaret1m'] = return1m.groupby('ticker')['return1m'].rolling(20).mean()
+emaret1m = us_eod_Adj_Close.pct_change(20).rolling(20).mean().unstack().reset_index(name='emaret1m')
 fwd_return1m = us_eod_Adj_Close.pct_change(20).shift(-20).unstack().reset_index(name='fwd_return1m')
 
 
@@ -79,7 +78,7 @@ unstack_adj_close = us_eod_Adj_Close.unstack().reset_index(name='adj_close')
 
 # side = fwd_return1m.apply(lambda x: get_norm_side(x.ema1m, x.retvol1m, x.fwd_return, 1.645), axis=1)
 dfs = [unstack_adj_close, mom1d, mom1w, mom1m, mom6m, mom12m, retvol1m, retvol12m, maxret1m,
-       maxret12m, ema1m, RSI, MACD1m12m, return1m, fwd_return1m]
+       maxret12m, ema1m, RSI, MACD1m12m, return1m, emaret1m, fwd_return1m]
 
 
 name_dfs = ['ticker', 'Date', 'adj_close', 'mom1d', 'mom1w', 'mom1m', 'chmom1m', 'mom6m', 'chmom6m', 'mom12m', 'chmom12m', 'retvol1m', 'retvol12m', 'maxret1m',
